@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html class="light-style" dir="ltr" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <title>EduPulse Dashboard</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/favicon/favicon.ico">
+  <link rel="apple-touch-icon" href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/favicon/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/perfect-scrollbar/1.5.5/css/perfect-scrollbar.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+<!-- Menu Sidebar -->
+<aside id="layout-menu" class="layout-menu menu-vertical">
+  <div class="app-brand demo">
+    <a href="index.html" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+        </svg>
+      </span>
+      <span class="app-brand-text demo menu-text fw-semibold ms-2">EduPulse</span>
+    </a>
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto" aria-label="Close menu">
+      <i class="ri-close-line ri-lg"></i>
+    </a>
+  </div>
+
+  <div class="menu-divider"></div>
+
+  <ul class="menu-inner">
+    <!-- Academy Menu -->
+    <li class="menu-item active">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <div class="menu-icon-wrapper">
+          <i class="menu-icon tf-icons ri-graduation-cap-line"></i>
+        </div>
+        <div class="menu-title">Academy</div>
+        <i class="menu-arrow ri-arrow-right-s-line"></i>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item active">
+          <a href="{{ url_for('main.app_academy_dashboard') }}" class="menu-link">
+            <div class="menu-bullet">
+              <span></span>
+            </div>
+            <div class="menu-text">Dashboard</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{{ url_for('main.app_academy_course') }}" class="menu-link">
+            <div class="menu-bullet">
+              <span></span>
+            </div>
+            <div class="menu-text">Courses</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Users Menu -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <div class="menu-icon-wrapper">
+          <i class="menu-icon tf-icons ri-user-line"></i>
+        </div>
+        <div class="menu-title">Students</div>
+        <i class="menu-arrow ri-arrow-right-s-line"></i>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="{{ url_for('main.app_student_list') }}" class="menu-link">
+            <div class="menu-bullet">
+              <span></span>
+            </div>
+            <div class="menu-text">Student List</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</aside>
+
+      <!-- Layout page -->
+      <div class="layout-page">
+        <!-- Navbar -->
+        <nav class="layout-navbar navbar navbar-expand-lg align-items-center bg-navbar-theme" id="layout-navbar">
+          <div class="container-fluid">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)" aria-label="Toggle menu">
+                <i class="ri-menu-fill ri-lg"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+                <!-- Style Switcher -->
+                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+                  <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Theme switcher">
+                    <i class="ri-sun-line ri-lg light-icon"></i>
+                    <i class="ri-moon-line ri-lg dark-icon" style="display: none;"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
+                    <li>
+                      <a class="dropdown-item theme-item" href="javascript:void(0);" data-theme="light">
+                        <i class="ri-sun-line me-2"></i>
+                        <span class="align-middle">Light</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item theme-item" href="javascript:void(0);" data-theme="dark">
+                        <i class="ri-moon-line me-2"></i>
+                        <span class="align-middle">Dark</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="avatar avatar-online">
+                      <img src="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/avatars/1.png" alt="User avatar" class="w-px-40 h-auto rounded-circle">
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
+                    {% if 'email' in session %}
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <div class="d-flex align-items-center">
+                          <div class="flex-shrink-0 me-2">
+                            <div class="avatar avatar-online">
+                              <img src="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/avatars/1.png" alt="User avatar" class="w-px-40 h-auto rounded-circle">
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <h6 class="mb-0">John Doe</h6>
+                            <small class="text-muted">Admin</small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{{ url_for('main.pages_profile_student') }}">
+                        <i class="ri-user-3-line me-2"></i>
+                        <span class="align-middle">My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{{ url_for('main.logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        <span class="align-middle">Logout</span>
+                      </a>
+                    </li>
+                    {% else %}
+                    <li>
+                      <div class="dropdown-item">
+                        <div class="d-flex flex-column gap-2">
+                          <a href="{{ url_for('main.login') }}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                          </a>
+                          <a href="{{ url_for('main.signup') }}" class="btn btn-primary w-100">
+                            <i class="fas fa-user-plus me-1"></i> Sign Up
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+          <!-- Content -->
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner mb-4">
+              <div class="welcome-content">
+                <h3 class="text-white mb-2">
+                  {% if 'email' in session %}
+                 Welcome, {{ session.get('email', 'User') }} 👋
+                 {% else %}
+                 Welcome of our student 👋
+                 {% endif %}
+                </h3>
+                <p class="text-white mb-4">Your learning journey is going great. Keep up the good work!</p>
+                <button class="btn btn-light">
+                  <i class="ri-rocket-line me-1"></i> Continue Learning
+                </button>
+              </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+              <div class="col-md-6 col-lg-3 mb-4">
+                <div class="stats-card">
+                  <div class="stats-icon bg-label-primary">
+                    <i class="ri-time-line text-primary"></i>
+                  </div>
+                  <div class="stats-content">
+                    <h6 class="stats-title">Hours Spent</h6>
+                    <h3 class="stats-value">34h</h3>
+                    <div class="stats-change text-success">
+                      <i class="ri-arrow-up-line"></i> 12% from last week
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 mb-4">
+                <div class="stats-card">
+                  <div class="stats-icon bg-label-success">
+                    <i class="ri-medal-line text-success"></i>
+                  </div>
+                  <div class="stats-content">
+                    <h6 class="stats-title">Courses Completed</h6>
+                    <h3 class="stats-value">14</h3>
+                    <div class="stats-change text-success">
+                      <i class="ri-arrow-up-line"></i> 3 new this month
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 mb-4">
+                <div class="stats-card">
+                  <div class="stats-icon bg-label-info">
+                    <i class="ri-lightbulb-flash-line text-info"></i>
+                  </div>
+                  <div class="stats-content">
+                    <h6 class="stats-title">Test Results</h6>
+                    <h3 class="stats-value">82%</h3>
+                    <div class="stats-change text-danger">
+                      <i class="ri-arrow-down-line"></i> 2% from last month
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 mb-4">
+                <div class="stats-card">
+                  <div class="stats-icon bg-label-warning">
+                    <i class="ri-star-line text-warning"></i>
+                  </div>
+                  <div class="stats-content">
+                    <h6 class="stats-title">Achievements</h6>
+                    <h3 class="stats-value">5</h3>
+                    <div class="stats-change text-success">
+                      <i class="ri-arrow-up-line"></i> 1 new badge
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Left Column -->
+              <div class="col-lg-8 mb-4">
+                <!-- Time Spendings Chart -->
+                <div class="card mb-4">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Time Spendings</h5>
+                    <div class="dropdown">
+                      <button class="btn p-0" type="button" id="timeSpendingsDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ri-more-2-line"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="timeSpendingsDropdown">
+                        <a class="dropdown-item" href="javascript:void(0);">Last 7 Days</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Last 30 Days</a>
+                        <a class="dropdown-item" href="javascript:void(0);">This Year</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="leadsReportChart"></div>
+                  </div>
+                </div>
+
+<!-- Recent Courses -->
+<div class="card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Recent Courses</h5>
+    <a href="{{ url_for('main.app_academy_course') }}" class="btn btn-sm btn-outline-primary">View All</a>
+  </div>
+  <div class="card-body">
+    {% for course in recent_courses %}
+    <div class="recent-course-card">
+      <!-- Static image based on loop index -->
+      <img src="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/pages/app-academy-tutor-1.png" 
+           alt="{{ course.title }}" 
+           class="recent-course-img">
+      <div class="recent-course-info">
+        <!-- Dynamic title from database -->
+        <h6 class="mb-1">{{ course.title }}</h6>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <!-- Static rating based on loop index -->
+          <div class="text-warning small">
+            {% if loop.index == 1 %}
+              <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-line"></i>
+              <span class="text-muted ms-1">4.7</span>
+            {% elif loop.index == 2 %}
+              <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i>
+              <span class="text-muted ms-1">4.2</span>
+            {% else %}
+              <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+              <span class="text-muted ms-1">4.9</span>
+            {% endif %}
+          </div>
+          <!-- Static status based on loop index -->
+          <span class="badge 
+            {% if loop.index == 1 %}bg-label-primary
+            {% elif loop.index == 2 %}bg-label-success
+            {% else %}bg-label-info{% endif %}">
+            {% if loop.index == 1 %}In Progress
+            {% elif loop.index == 2 %}Completed
+            {% else %}New{% endif %}
+          </span>
+        </div>
+        <!-- Static progress bar based on loop index -->
+        <div class="progress mb-1" style="height: 6px;">
+          <div class="progress-bar 
+            {% if loop.index == 1 %}bg-primary
+            {% elif loop.index == 2 %}bg-success
+            {% else %}bg-info{% endif %}" 
+            role="progressbar" 
+            style="width: {% if loop.index == 1 %}65%{% elif loop.index == 2 %}100%{% else %}15%{% endif %};" 
+            aria-valuenow="{% if loop.index == 1 %}65{% elif loop.index == 2 %}100{% else %}15{% endif %}" 
+            aria-valuemin="0" 
+            aria-valuemax="100"></div>
+        </div>
+        <!-- Static progress text based on loop index -->
+        <small class="text-muted">
+          {% if loop.index == 1 %}65% completed • 9h 45m remaining
+          {% elif loop.index == 2 %}Completed 2 weeks ago
+          {% else %}15% completed • 12h 30m remaining{% endif %}
+        </small>
+        <!-- Dynamic description from database (hidden by default, can be shown on hover/click) -->
+        <div class="mt-2 small text-muted d-none course-description">
+          {{ course.description }}
+        </div>
+      </div>
+    </div>
+    {% if not loop.last %}
+    <hr class="my-3">
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+              </div>
+
+              <!-- Right Column -->
+              <div class="col-lg-4 mb-4">
+                <!-- Activity Timeline -->
+                <div class="card mb-4">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Activity</h5>
+                    <div class="dropdown">
+                      <button class="btn p-0" type="button" id="activityDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ri-more-2-line"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="activityDropdown">
+                        <a class="dropdown-item" href="javascript:void(0);">Mark all as read</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Settings</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="activity-timeline">
+                      <div class="activity-item">
+                        <div class="activity-dot"></div>
+                        <div class="activity-time">Today, 10:30 AM</div>
+                        <div class="activity-content">
+                          <p class="mb-0">Completed lesson "Compound Components" in <strong>Advanced React Patterns</strong></p>
+                        </div>
+                      </div>
+                      <div class="activity-item">
+                        <div class="activity-dot bg-success"></div>
+                        <div class="activity-time">Yesterday, 4:45 PM</div>
+                        <div class="activity-content">
+                          <p class="mb-0">Earned achievement <strong>Fast Learner</strong> for completing 5 lessons in one day</p>
+                        </div>
+                      </div>
+                      <div class="activity-item">
+                        <div class="activity-dot bg-info"></div>
+                        <div class="activity-time">Yesterday, 11:20 AM</div>
+                        <div class="activity-content">
+                          <p class="mb-0">Started new course <strong>UX Design Principles</strong></p>
+                        </div>
+                      </div>
+                      <div class="activity-item">
+                        <div class="activity-dot bg-warning"></div>
+                        <div class="activity-time">2 days ago</div>
+                        <div class="activity-content">
+                          <p class="mb-0">Scored 92% on test for <strong>TypeScript Fundamentals</strong></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Course Categories -->
+                <div class="card mb-4">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Course Categories</h5>
+                    <div class="dropdown">
+                      <button class="btn p-0" type="button" id="categoriesDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ri-more-2-line"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="categoriesDropdown">
+                        <a class="dropdown-item" href="javascript:void(0);">View All</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="category-card">
+                      <div class="category-icon bg-label-primary">
+                        <i class="ri-code-line text-primary"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Web Development</h6>
+                        <small class="text-muted">24 Courses</small>
+                      </div>
+                    </div>
+                    <div class="category-card">
+                      <div class="category-icon bg-label-success">
+                        <i class="ri-palette-line text-success"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Design</h6>
+                        <small class="text-muted">18 Courses</small>
+                      </div>
+                    </div>
+                    <div class="category-card">
+                      <div class="category-icon bg-label-info">
+                        <i class="ri-smartphone-line text-info"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Mobile Development</h6>
+                        <small class="text-muted">12 Courses</small>
+                      </div>
+                    </div>
+                    <div class="category-card">
+                      <div class="category-icon bg-label-warning">
+                        <i class="ri-database-2-line text-warning"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Data Science</h6>
+                        <small class="text-muted">9 Courses</small>
+                      </div>
+                    </div>
+                    <div class="category-card">
+                      <div class="category-icon bg-label-danger">
+                        <i class="ri-bar-chart-2-line text-danger"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Business</h6>
+                        <small class="text-muted">15 Courses</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div class="card">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Upcoming Events</h5>
+                    <div class="dropdown">
+                      <button class="btn p-0" type="button" id="eventsDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ri-more-2-line"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="eventsDropdown">
+                        <a class="dropdown-item" href="javascript:void(0);">View Calendar</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Add Event</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="d-flex mb-4">
+                      <div class="avatar flex-shrink-0 me-3">
+                        <span class="avatar-initial rounded bg-label-primary">
+                          <i class="ri-calendar-line"></i>
+                        </span>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Live Q&A Session</h6>
+                        <small class="text-muted">Tomorrow, 3:00 PM - 4:00 PM</small>
+                      </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                      <div class="avatar flex-shrink-0 me-3">
+                        <span class="avatar-initial rounded bg-label-success">
+                          <i class="ri-vidicon-line"></i>
+                        </span>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Webinar: React Performance</h6>
+                        <small class="text-muted">Nov 17, 11:00 AM - 12:30 PM</small>
+                      </div>
+                    </div>
+                    <div class="d-flex">
+                      <div class="avatar flex-shrink-0 me-3">
+                        <span class="avatar-initial rounded bg-label-info">
+                          <i class="ri-medal-line"></i>
+                        </span>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Monthly Coding Challenge</h6>
+                        <small class="text-muted">Dec 1, All Day</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Topic Interests -->
+            <div class="card mb-4">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Topics You're Interested In</h5>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button" id="topicsDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ri-more-2-line"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="topicsDropdown">
+                    <a class="dropdown-item" href="javascript:void(0);">Update Interests</a>
+                    <a class="dropdown-item" href="javascript:void(0);">View All</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div id="horizontalBarChart"></div>
+                  </div>
+                  <div class="col-md-6 d-flex justify-content-around align-items-center">
+                    <div>
+                      <div class="d-flex mb-3 align-items-baseline">
+                        <span class="text-primary me-2"><i class='ri-circle-fill ri-12px'></i></span>
+                        <div>
+                          <p class="mb-0">UI Design</p>
+                          <h5 class="mb-0">35%</h5>
+                        </div>
+                      </div>
+                      <div class="d-flex mb-3 align-items-baseline">
+                        <span class="text-success me-2"><i class='ri-circle-fill ri-12px'></i></span>
+                        <div>
+                          <p class="mb-0">Music</p>
+                          <h5 class="mb-0">14%</h5>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-baseline">
+                        <span class="text-danger me-2"><i class='ri-circle-fill ri-12px'></i></span>
+                        <div>
+                          <p class="mb-0">React</p>
+                          <h5 class="mb-0">10%</h5>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="d-flex mb-3 align-items-baseline">
+                        <span class="text-info me-2"><i class='ri-circle-fill ri-12px'></i></span>
+                        <div>
+                          <p class="mb-0">UX Design</p>
+                          <h5 class="mb-0">20%</h5>
+                        </div>
+                      </div>
+                      <div class="d-flex mb-3 align-items-baseline">
+                        <span class="text-secondary me-2"><i class='ri-circle-fill ri-12px'></i></span>
+                        <div>
+                          <p class="mb-0">Animation</p>
+                          <h5 class="mb-0">12%</h5>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-baseline">
+                        <span class="text-warning me-2"><i class='ri-circle-fill ri-12px'></i></span>
+                        <div>
+                          <p class="mb-0">SEO</p>
+                          <h5 class="mb-0">9%</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Popular Instructors -->
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Popular Instructors</h5>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button" id="instructorsDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ri-more-2-line"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="instructorsDropdown">
+                    <a class="dropdown-item" href="javascript:void(0);">Follow All</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="d-flex align-items-center">
+                      <div class="avatar me-3">
+                        <img src="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Maven Analytics</h6>
+                        <small class="text-muted">Business Intelligence</small>
+                        <div class="text-warning small">
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-half-line"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="d-flex align-items-center">
+                      <div class="avatar me-3">
+                        <img src="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Bentlee Emblin</h6>
+                        <small class="text-muted">Digital Marketing</small>
+                        <div class="text-warning small">
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="d-flex align-items-center">
+                      <div class="avatar me-3">
+                        <img src="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" />
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Benedetto Rossiter</h6>
+                        <small class="text-muted">UI/UX Design</small>
+                        <div class="text-warning small">
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-line"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="d-flex align-items-center">
+                      <div class="avatar me-3">
+                        <img src="https://demos.themeselection.com/materio-bootstrap-html-admin-template/assets/img/avatars/4.png" alt="Avatar" class="rounded-circle" />
+                      </div>
+                      <div>
+                        <h6 class="mb-1">Beverlie Krabbe</h6>
+                        <small class="text-muted">React Native</small>
+                        <div class="text-warning small">
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-half-line"></i>
+                          <i class="ri-star-line"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- / Content -->
+
+          <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl">
+              <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                <div class="text-body mb-2 mb-md-0">
+                  © <script>
+                  document.write(new Date().getFullYear())
+                  </script>, made with <span class="text-danger"><i class="tf-icons ri-heart-fill"></i></span> by <a href="https://themeselection.com/" target="_blank" class="footer-link">ThemeSelection</a>
+                </div>
+                <div class="d-none d-lg-inline-block">
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+                  <a href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
+                  <a href="https://themeselection.com/support/" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a>
+                </div>
+              </div>
+            </div>
+          </footer>
+          <!-- / Footer -->
+
+          <div class="content-backdrop fade"></div>
+        </div>
+        <!-- Content wrapper -->
+      </div>
+      <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+  </div>
+
+  <!-- Core JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/perfect-scrollbar/1.5.5/perfect-scrollbar.min.js"></script>
+
+  <!-- Add ApexCharts JS -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.35.0/dist/apexcharts.min.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  if (document.documentElement.dir === 'rtl') {
+    // Fix elements that need special handling
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+      menu.style.right = '0';
+      menu.style.left = 'auto';
+    });
+    
+    // Fix any specific component alignments
+    document.querySelectorAll('.text-start').forEach(el => {
+      el.classList.add('text-end');
+      el.classList.remove('text-start');
+    });
+  }
+});
+</script>
+</body>
+</html>
