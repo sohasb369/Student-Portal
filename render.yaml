@@ -3,7 +3,7 @@ services:
     name: student-portal
     env: python
     buildCommand: ""
-    startCommand: gunicorn app:app
+    startCommand: gunicorn app:create_app()
     envVars:
       - key: FLASK_ENV
         value: production
