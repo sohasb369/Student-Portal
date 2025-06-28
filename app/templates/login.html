@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="auth-wrapper">
+        <div class="auth-bg">
+            <div class="auth-bg-mask"></div>
+            <div class="auth-tree-left d-none d-lg-block">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#9055FD" opacity="0.1" d="M50,0 C60,50 40,100 50,150 C60,200 100,200 150,200 C200,200 190,150 180,100 C170,50 190,0 150,0 C110,0 40,0 50,0 Z"/>
+                </svg>
+            </div>
+            <div class="auth-tree-right d-none d-lg-block">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#9055FD" opacity="0.1" d="M150,0 C140,50 160,100 150,150 C140,200 100,200 50,200 C0,200 10,150 20,100 C30,50 10,0 50,0 C90,0 160,0 150,0 Z"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="auth-inner">
+                <div class="auth-card">
+                    <div class="app-brand">
+                        <a href="#" class="app-brand-link">
+                            <span class="app-brand-logo">
+                                <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3002 1.25469L56.655 28.6432C59.0349 30.1128 60.4839 32.711 60.4839 35.5089V160.63C60.4839 163.468 58.9941 166.097 56.5603 167.553L12.2055 194.107C8.3836 196.395 3.43136 195.15 1.14435 191.327C0.395485 190.075 0 188.643 0 187.184V8.12039C0 3.66447 3.61061 0.0522461 8.06452 0.0522461C9.56056 0.0522461 11.0271 0.468577 12.3002 1.25469Z" fill="#9055FD"/>
+                                    <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M0 65.2656L60.4839 99.9629V133.979L0 65.2656Z" fill="black"/>
+                                    <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M0 65.2656L60.4839 99.0795V119.859L0 65.2656Z" fill="black"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M237.71 1.22393L193.355 28.5207C190.97 29.9889 189.516 32.5905 189.516 35.3927V160.631C189.516 163.469 191.006 166.098 193.44 167.555L237.794 194.108C241.616 196.396 246.569 195.151 248.856 191.328C249.605 190.076 250 188.644 250 187.185V8.09597C250 3.64006 246.389 0.027832 241.935 0.027832C240.444 0.027832 238.981 0.441882 237.71 1.22393Z" fill="#9055FD"/>
+                                    <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M250 65.2656L189.516 99.8897V135.006L250 65.2656Z" fill="black"/>
+                                    <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M250 65.2656L189.516 99.0497V120.886L250 65.2656Z" fill="black"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z" fill="#9055FD"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z" fill="white" fill-opacity="0.15"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z" fill="#9055FD"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z" fill="white" fill-opacity="0.3"/>
+                                </svg>
+                            </span>
+                            <span class="app-brand-text">EduPulse</span>
+                        </a>
+                    </div>
+                    
+                    <h4 class="text-center mb-1">Welcome to EduPulse! 👋🏻</h4>
+                    <p class="text-center mb-5">Please sign-in to your account and start the adventure</p>
+                    
+                    <form action="{{ url_for('main.login') }}" method="POST">
+                        <div class="input-group mb-4">
+                            <input type="email" name="email" id="email" class="form-control" placeholder=" " required />
+                            <label for="email">Email</label>
+                        </div>
+                        
+                        <div class="input-group mb-3">
+                            <input type="password" name="password" id="password" class="form-control" placeholder=" " required />
+                            <label for="password">Password</label>
+                            <i class="ri-eye-line password-toggle" id="togglePassword"></i>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="remember-me">
+                                <label class="form-check-label" for="remember-me">Remember Me</label>
+                            </div>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-login btn-block mb-4">Login</button>
+                    </form>
+                    
+                    <p class="text-center mb-4">
+                        <span>New on our platform?</span>
+                        <a href="{{ url_for('main.signup') }}" style="color: var(--primary-color); text-decoration: none; margin-left: 0.5rem;">Create an account</a>
+                    </p>
+                    
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
